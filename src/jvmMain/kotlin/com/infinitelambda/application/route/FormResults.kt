@@ -4,10 +4,8 @@ import arrow.core.Either
 import arrow.core.raise.Raise
 import arrow.core.raise.effect
 import arrow.core.raise.fold
-import com.infinitelambda.application.FormResultError
-import com.infinitelambda.application.FormResultErrors
-import com.infinitelambda.application.FormResultNotPersisted
-import com.infinitelambda.application.InvalidFormResult
+import com.google.cloud.language.v2.LanguageServiceClient
+import com.infinitelambda.application.*
 import com.infinitelambda.application.bigQuery.BigQueryWriteStream
 import com.infinitelambda.application.data.FormResult
 import com.infinitelambda.application.service.FormResultService
@@ -18,7 +16,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 
-context(BigQueryWriteStream)
+context(BigQueryWriteStream, LanguageServiceClient)
 fun Routing.formResultRoutes() {
 
     route("/formResults") {
@@ -46,6 +44,11 @@ private suspend fun KtorCtx.respond(error: FormResultError) =
         is FormResultNotPersisted -> call.respond(
             HttpStatusCode.InternalServerError,
             "Unexpected failure: ${error.message}, caused by ${error.cause}"
+        )
+
+        is EnrichmentFailed -> call.respond(
+            HttpStatusCode.InternalServerError,
+            "Error while enriching data: ${error.message}"
         )
 
         is InvalidFormResult -> call.respond(HttpStatusCode.UnprocessableEntity, error.message)

@@ -38,7 +38,7 @@ internal fun Application.app(dependencies: Dependencies) {
     routing {
         index()
 
-        with(dependencies.writeStream) {
+        with(dependencies.writeStream, dependencies.languageServiceClient) {
             formResultRoutes()
         }
     }

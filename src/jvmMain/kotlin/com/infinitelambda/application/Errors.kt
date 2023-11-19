@@ -9,3 +9,4 @@ typealias FormResultErrors = Raise<FormResultError>
 sealed interface FormResultError: DomainError
 data class InvalidFormResult(val message: String): FormResultError
 data class FormResultNotPersisted(val message: String, val cause: Throwable): FormResultError
+data class EnrichmentFailed(val message: String): FormResultError

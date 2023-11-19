@@ -4,6 +4,9 @@ import kotlinx.coroutines.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -38,4 +41,22 @@ fun cancelOnShutdown(
     if (!isShutdown.getAndSet(true)) {
         Runtime.getRuntime().removeShutdownHook(hook)
     }
+}
+
+@OptIn(ExperimentalContracts::class)
+@Suppress("SUBTYPING_BETWEEN_CONTEXT_RECEIVERS") // should be fine as long as T and U are not a part of the same hierarchy
+inline fun <T, U, R> with(
+    receiver1: T,
+    receiver2: U,
+    block: context(T, U) (TypePlacedHolder<U>) -> R
+): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    return block(receiver1, receiver2, TypePlacedHolder)
+}
+
+// Work-around for bug with context receiver lambda
+sealed interface TypePlacedHolder<out A> {
+    companion object : TypePlacedHolder<Nothing>
 }

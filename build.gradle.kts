@@ -60,6 +60,7 @@ kotlin {
 
                 implementation(platform("com.google.cloud:libraries-bom:26.26.0"))
                 implementation("com.google.cloud:google-cloud-bigquery")
+                implementation("com.google.cloud:google-cloud-language")
 
                 implementation("ch.qos.logback:logback-classic:1.4.11")
             }

@@ -16,7 +16,7 @@ class BigQueryWriteStream(
     projectId: String,
     datasetName: String,
     tableName: String,
-    private val dispatcher: CoroutineDispatcher= Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : AutoCloseable {
 
     private val client: BigQueryWriteClient = BigQueryWriteClient.create()
