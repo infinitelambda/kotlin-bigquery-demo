@@ -18,7 +18,8 @@ data class Http(
 data class BigQuery(
     val projectId: String = getenvOrThrow("PROJECT_ID"),
     val datasetName: String = getenvOrThrow("DATASET_NAME"),
-    val tableName: String = getenvOrThrow("TABLE_NAME")
+    val resultsTableName: String = getenvOrThrow("RESULTS_TABLE_NAME"),
+    val aggregatedResultsViewName: String = getenvOrThrow("AGG_RESULTS_VIEW_NAME")
 )
 
 private fun getenvOrThrow(name: String) =

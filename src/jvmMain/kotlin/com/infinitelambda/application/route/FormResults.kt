@@ -21,6 +21,8 @@ fun Routing.formResultRoutes() {
 
     route("/formResults") {
         post {
+            call.application.environment.log.info("Request to /formResults")
+
             conduit(HttpStatusCode.NoContent) {
                 val result = receiveCatching()
                 FormResultService.save(result)

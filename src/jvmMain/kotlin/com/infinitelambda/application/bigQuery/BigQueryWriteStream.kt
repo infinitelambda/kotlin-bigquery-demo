@@ -3,6 +3,7 @@ package com.infinitelambda.application.bigQuery
 import com.google.api.core.ApiFutureCallback
 import com.google.api.core.ApiFutures
 import com.google.cloud.bigquery.storage.v1.*
+import com.google.cloud.bigquery.storage.v1.TableName
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
