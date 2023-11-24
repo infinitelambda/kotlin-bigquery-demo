@@ -1,3 +1,8 @@
 package com.infinitelambda.application.html
 
-const val canvasId = "composeTarget"
+const val formId = "feedbackForm"
+
+const val dashboardId = "feedbackDashboard"
+const val favouriteFoodChartId = "favouriteFoodChart"
+const val kotlinInterestLevelChartId = "kotlinInterestLevelChart"
+const val sentimentChartId = "sentimentChart"

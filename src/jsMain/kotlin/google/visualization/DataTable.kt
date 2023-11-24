@@ -1,4 +1,10 @@
+@file:JsQualifier("google.visualization")
 package google.visualization
 
-class DataTable {
+external class DataTable {
+
+    fun addColumn(type: String, name: String)
+
+    fun addRows(rows: Array<Array<Any>>)
+
 }

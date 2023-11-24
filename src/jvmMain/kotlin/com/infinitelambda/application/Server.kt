@@ -45,6 +45,9 @@ internal fun Application.app(dependencies: Dependencies) {
 
     install(CORS) {
         allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Post)
+        allowSameOrigin = true
+        allowNonSimpleContentTypes = true
         anyHost()
     }
 
@@ -73,8 +76,8 @@ internal fun Application.app(dependencies: Dependencies) {
             formResultRoutes()
         }
 
-        with(dependencies.readStream) {
-            dashboardRoutes()
+        with(dependencies.readStream, this@app) {
+            this@routing.dashboardRoutes()
         }
     }
 }
