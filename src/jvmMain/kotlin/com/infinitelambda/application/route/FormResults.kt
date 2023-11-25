@@ -4,8 +4,8 @@ import arrow.core.Either
 import arrow.core.raise.Raise
 import arrow.core.raise.effect
 import arrow.core.raise.fold
-import com.google.cloud.language.v2.LanguageServiceClient
 import com.infinitelambda.application.*
+import com.infinitelambda.application.analisys.SentimentAnalyser
 import com.infinitelambda.application.bigQuery.BigQueryWriteStream
 import com.infinitelambda.application.data.FormResult
 import com.infinitelambda.application.service.FormResultService
@@ -16,7 +16,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 
-context(BigQueryWriteStream, LanguageServiceClient)
+context(BigQueryWriteStream, SentimentAnalyser)
 fun Routing.formResultRoutes() {
 
     route("/formResults") {
