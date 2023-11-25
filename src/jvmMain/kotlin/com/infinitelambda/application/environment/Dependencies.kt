@@ -4,12 +4,13 @@ import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.autoCloseable
 import arrow.fx.coroutines.continuations.resource
 import com.google.cloud.language.v2.LanguageServiceClient
+import com.infinitelambda.application.analisys.SentimentAnalyser
 import com.infinitelambda.application.bigQuery.*
 
 class Dependencies(
     val writeStream: BigQueryWriteStream,
     val readStream: BigQueryReadStream,
-    val languageServiceClient: LanguageServiceClient
+    val sentimentAnalyser: SentimentAnalyser
 )
 
 
@@ -31,7 +32,7 @@ fun Dependencies(env: Environment): Resource<Dependencies> = resource {
             )
         )
     }
-    val languageServiceClient = autoCloseable { LanguageServiceClient.create() }
+    val sentimentAnalyser = autoCloseable { SentimentAnalyser() }
 
-    Dependencies(writeStream, readStream, languageServiceClient)
+    Dependencies(writeStream, readStream, sentimentAnalyser)
 }
