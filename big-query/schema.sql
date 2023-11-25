@@ -13,14 +13,15 @@ create or replace table form_results.results(
 -- create the result aggregation view
 create or replace view form_results.aggregated_results as (
     select
-        sum(case when favourite_food = 'BURGER' then 1 else 0 end) / count(favourite_food) as burger_pct,
-        sum(case when favourite_food = 'PIZZA' then 1 else 0 end) /count(favourite_food) as pizza_pct,
-        sum(case when kotlin_interest_level = 'HIGH' then 1 else 0 end) / count(kotlin_interest_level) as high_interest_pct,
-        sum(case when kotlin_interest_level = 'MEDIUM' then 1 else 0 end) / count(kotlin_interest_level) as medium_interest_pct,
-        sum(case when kotlin_interest_level = 'LOW' then 1 else 0 end) / count(kotlin_interest_level) as low_interest_pct,
-        sum(case when sentiment = 'POSITIVE' then 1 else 0 end) / count(sentiment) as positive_sentiment_pct,
-        sum(case when sentiment = 'NEGATIVE' then 1 else 0 end) / count(sentiment) as negative_sentiment_pct,
+        ifnull(sum(case when favourite_food = 'BURGER' then 1 else 0 end), 0) as burger_count,
+        ifnull(sum(case when favourite_food = 'PIZZA' then 1 else 0 end), 0) as pizza_count,
+        ifnull(sum(case when kotlin_interest_level = 'HIGH' then 1 else 0 end), 0) as high_interest_count,
+        ifnull(sum(case when kotlin_interest_level = 'MEDIUM' then 1 else 0 end), 0) as medium_interest_count,
+        ifnull(sum(case when kotlin_interest_level = 'LOW' then 1 else 0 end), 0) as low_interest_count,
+        ifnull(sum(case when sentiment = 'POSITIVE' then 1 else 0 end), 0) as positive_sentiment_count,
+        ifnull(sum(case when sentiment = 'NEGATIVE' then 1 else 0 end), 0) as negative_sentiment_count,
     from
-        `form_results.results`
-)
+    `form_results.results`
+);
+
 

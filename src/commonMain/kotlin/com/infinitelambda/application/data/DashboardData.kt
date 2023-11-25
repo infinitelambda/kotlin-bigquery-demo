@@ -12,26 +12,26 @@ data class DashboardData(
 
 @Serializable
 data class FavouriteFoodData(
-    val pizza: Percentage,
-    val burger: Percentage
+    val pizza: Count,
+    val burger: Count
 )
 
 @Serializable
 data class KotlinInterestLevelData(
-    val high: Percentage,
-    val medium: Percentage,
-    val low: Percentage
+    val high: Count,
+    val medium: Count,
+    val low: Count
 )
 
 @Serializable
 data class SentimentData(
-    val positive: Percentage,
-    val negative: Percentage
+    val positive: Count,
+    val negative: Count
 )
 
 @JvmInline
 @Serializable
-value class Percentage(val value: Double)
+value class Count(val value: Long)
 
-fun Double.asPercentage(): Percentage =
-    Percentage(this)
+fun Long.asCount(): Count =
+    Count(this)
